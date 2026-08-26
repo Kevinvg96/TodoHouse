@@ -5,5 +5,5 @@
 // staan, de echte beveiliging zit in de RLS-policies in de
 // database (zie db/01_schema.sql).
 // ============================================================
-const SUPABASE_URL = "https://JOUW-PROJECT.supabase.co";
-const SUPABASE_ANON_KEY = "JOUW-ANON-KEY";
+const SUPABASE_URL = "https://usrqpnauozxlmuhilnsf.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_Mk349YPky0DpPYDXgmcKZw_FUytI6qD";
