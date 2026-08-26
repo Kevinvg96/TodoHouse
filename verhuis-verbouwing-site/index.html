@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aanmelden — Verhuis &amp; Verbouwing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="setup-check"></div>
+
+<div class="login-shell" id="login-shell" style="display:none;">
+  <div class="login-card">
+    <p class="eyebrow">Toegangscontrole</p>
+    <h1>Verhuis &amp; Verbouwing</h1>
+
+    <div class="field">
+      <label for="email">E-mailadres</label>
+      <input type="email" id="email" autocomplete="username" placeholder="jij@voorbeeld.be">
+    </div>
+    <div class="field">
+      <label for="password">Wachtwoord</label>
+      <input type="password" id="password" autocomplete="current-password" placeholder="••••••••">
+    </div>
+
+    <div class="login-actions">
+      <button class="btn" id="btn-login">Aanmelden</button>
+      <button class="btn ghost" id="btn-signup">Account aanmaken</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+
+    <p class="login-foot">
+      Nieuw account? Na "Account aanmaken" moet Kevin je e-mailadres nog
+      toevoegen aan de tabel <code>members</code> in Supabase voor je de
+      lijst kan zien — zie README.
+    </p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

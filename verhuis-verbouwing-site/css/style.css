@@ -1,0 +1,432 @@
+/* ============================================================
+   Tokens
+   ============================================================ */
+:root{
+  --paper:      #EDEAE1;
+  --paper-2:    #E3DECF;
+  --ink:        #211E1A;
+  --ink-soft:   #57534A;
+  --blueprint:  #2C4870;
+  --blueprint-2:#3E5F94;
+  --brick:      #9A4A30;
+  --tape:       #C99A2E;
+  --line:       #C6BFAE;
+  --ok:         #3F6B4A;
+  --danger:     #A23B2E;
+
+  --display: 'Space Grotesk', 'Arial Narrow', sans-serif;
+  --body: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --radius: 3px;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    linear-gradient(var(--paper) 1px, transparent 1px) 0 0/100% 32px,
+    linear-gradient(90deg, var(--paper) 1px, transparent 1px) 0 0/32px 100%,
+    var(--paper-2);
+  background-color:var(--paper);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(44,72,112,0.045) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(90deg, rgba(44,72,112,0.045) 0 1px, transparent 1px 32px);
+  color:var(--ink);
+  font-family:var(--body);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:var(--blueprint);}
+
+::selection{background:var(--tape); color:var(--ink);}
+
+:focus-visible{
+  outline:2px solid var(--blueprint);
+  outline-offset:2px;
+}
+
+/* ============================================================
+   Shell
+   ============================================================ */
+.sheet{
+  max-width:880px;
+  margin:0 auto;
+  padding:48px 24px 96px;
+}
+
+.masthead{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  border-bottom:2px solid var(--ink);
+  padding-bottom:14px;
+  margin-bottom:8px;
+  flex-wrap:wrap;
+}
+
+.masthead .title{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:clamp(28px,4.5vw,40px);
+  letter-spacing:-0.01em;
+  margin:0;
+}
+
+.masthead .title small{
+  display:block;
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--blueprint);
+  margin-bottom:4px;
+}
+
+.masthead .who{
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--ink-soft);
+  text-align:right;
+}
+.masthead .who button{
+  display:block;
+  margin-top:6px;
+}
+
+/* ============================================================
+   Tabs (verhuis / verbouwing)
+   ============================================================ */
+.tabs{
+  display:flex;
+  gap:2px;
+  margin:28px 0 22px;
+  border-bottom:1px solid var(--line);
+}
+.tab{
+  font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  background:none;
+  border:none;
+  padding:10px 4px;
+  margin-right:22px;
+  cursor:pointer;
+  color:var(--ink-soft);
+  border-bottom:3px solid transparent;
+  transform:translateY(1px);
+}
+.tab:hover{color:var(--ink);}
+.tab.active{
+  color:var(--blueprint);
+  border-bottom-color:var(--blueprint);
+  font-weight:700;
+}
+
+/* ============================================================
+   Progress — measuring-tape bar (signature element)
+   ============================================================ */
+.tape-wrap{
+  margin-bottom:32px;
+}
+.tape-label{
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--ink-soft);
+  margin-bottom:6px;
+}
+.tape{
+  position:relative;
+  height:22px;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--ink) 0 1px, transparent 1px 10px,
+      transparent 10px 20px),
+    #fbf9f4;
+  border:1.5px solid var(--ink);
+  border-radius:2px;
+  overflow:hidden;
+}
+.tape::before{
+  /* long ticks every 5th mark */
+  content:"";
+  position:absolute; inset:0;
+  background: repeating-linear-gradient(90deg,
+    var(--ink) 0 1px, transparent 1px 50px);
+  opacity:0.55;
+}
+.tape-fill{
+  position:absolute; top:0; left:0; bottom:0;
+  background:var(--tape);
+  width:0%;
+  transition:width .5s ease;
+  box-shadow: inset 0 0 0 1.5px rgba(33,30,26,0.25);
+}
+
+/* ============================================================
+   Categories & tasks
+   ============================================================ */
+.category{
+  margin-bottom:30px;
+}
+.category-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+.category-head .corner{
+  width:9px;height:9px;
+  border-left:2px solid var(--brick);
+  border-top:2px solid var(--brick);
+  transform:rotate(0deg);
+  flex:none;
+}
+.category-head h2{
+  font-family:var(--display);
+  font-size:17px;
+  font-weight:700;
+  margin:0;
+  letter-spacing:0.01em;
+}
+.category-count{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--ink-soft);
+  margin-left:auto;
+}
+
+.task{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:4px 12px;
+  padding:10px 6px;
+  border-bottom:1px solid var(--line);
+}
+.task:hover{background:rgba(44,72,112,0.04);}
+
+.task-title{
+  font-size:14.5px;
+  line-height:1.4;
+  padding-top:2px;
+  grid-column:2;
+}
+
+.stamps{
+  grid-column:2;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:2px;
+}
+
+.stampline{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* checkbox rendered as a stamp square */
+.stampbox{
+  appearance:none;
+  -webkit-appearance:none;
+  width:20px;height:20px;
+  border:2px solid var(--ink);
+  border-radius:2px;
+  background:#fbf9f4;
+  cursor:pointer;
+  position:relative;
+  flex:none;
+  transform:rotate(-1deg);
+}
+.stampbox:checked{
+  background:var(--ok);
+  border-color:var(--ok);
+}
+.stampbox:checked::after{
+  content:"✓";
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  color:#fbf9f4; font-size:14px; font-weight:700;
+}
+.stampbox:disabled{cursor:default; opacity:0.85;}
+
+.stamp-meta{
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--ink-soft);
+}
+.stamp-meta.empty{color:#9c9484;}
+.stamp-meta b{color:var(--blueprint); font-weight:700;}
+
+/* ============================================================
+   Add-task row
+   ============================================================ */
+.add-row{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+  padding-top:6px;
+}
+.add-row input[type=text]{
+  flex:1;
+  font-family:var(--body);
+  font-size:13.5px;
+  padding:8px 10px;
+  border:1px dashed var(--line);
+  border-radius:2px;
+  background:transparent;
+}
+.add-row input[type=text]:focus{border-style:solid; border-color:var(--blueprint);}
+.add-row label{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+
+.add-category{
+  margin-top:8px;
+  display:flex;
+  gap:8px;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+button{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.03em;
+  cursor:pointer;
+  border-radius:2px;
+}
+.btn{
+  background:var(--ink);
+  color:var(--paper);
+  border:1px solid var(--ink);
+  padding:8px 14px;
+}
+.btn:hover{background:var(--blueprint); border-color:var(--blueprint);}
+.btn.ghost{
+  background:transparent;
+  color:var(--ink);
+  border:1px solid var(--ink);
+}
+.btn.ghost:hover{border-color:var(--blueprint); color:var(--blueprint);}
+.btn.small{padding:6px 10px; font-size:11px;}
+.btn:disabled{opacity:0.5; cursor:default;}
+
+/* ============================================================
+   Login page
+   ============================================================ */
+.login-shell{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+.login-card{
+  width:100%;
+  max-width:380px;
+  background:#fbf9f4;
+  border:2px solid var(--ink);
+  border-radius:3px;
+  padding:32px 28px;
+  box-shadow:6px 6px 0 var(--blueprint);
+}
+.login-card .eyebrow{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--blueprint);
+  margin:0 0 4px;
+}
+.login-card h1{
+  font-family:var(--display);
+  font-size:26px;
+  margin:0 0 22px;
+}
+.field{margin-bottom:14px;}
+.field label{
+  display:block;
+  font-family:var(--mono);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--ink-soft);
+  margin-bottom:5px;
+}
+.field input{
+  width:100%;
+  padding:10px 11px;
+  font-family:var(--body);
+  font-size:14px;
+  border:1.5px solid var(--ink);
+  border-radius:2px;
+  background:#fff;
+}
+.field input:focus{border-color:var(--blueprint);}
+
+.login-actions{
+  display:flex;
+  gap:8px;
+  margin-top:18px;
+}
+.login-actions .btn{flex:1;}
+
+.msg{
+  font-family:var(--mono);
+  font-size:12.5px;
+  margin-top:14px;
+  padding:9px 10px;
+  border-radius:2px;
+  display:none;
+}
+.msg.show{display:block;}
+.msg.error{background:rgba(162,59,46,0.1); color:var(--danger); border:1px solid rgba(162,59,46,0.3);}
+.msg.ok{background:rgba(63,107,74,0.1); color:var(--ok); border:1px solid rgba(63,107,74,0.3);}
+
+.login-foot{
+  margin-top:18px;
+  font-size:12px;
+  color:var(--ink-soft);
+  line-height:1.5;
+}
+
+.setup-warning{
+  max-width:520px;
+  margin:40px auto;
+  padding:18px 20px;
+  border:2px solid var(--danger);
+  background:rgba(162,59,46,0.06);
+  font-family:var(--mono);
+  font-size:12.5px;
+  line-height:1.6;
+}
+
+.gate-loading{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--ink-soft);
+}
+
+@media (max-width:480px){
+  .sheet{padding:28px 16px 72px;}
+  .stamps{gap:14px;}
+}
