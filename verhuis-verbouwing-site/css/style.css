@@ -430,3 +430,7 @@ button{
   .sheet{padding:28px 16px 72px;}
   .stamps{gap:14px;}
 }
+
+/* Wachtwoord vergeten */
+.forgot{margin-top:14px; font-size:13px;}
+.forgot a, .login-foot a{color:var(--blueprint); text-decoration:underline;}
