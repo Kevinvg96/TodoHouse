@@ -19,6 +19,13 @@ if (!SUPABASE_URL.includes("supabase.co") || SUPABASE_ANON_KEY === "JOUW-ANON-KE
 async function boot() {
   const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+  // Vangnet: komt de herstel-link toch op deze pagina terecht
+  // (redirect-URL niet toegestaan in Supabase), stuur door naar reset.html.
+  if (window.location.hash.includes("type=recovery")) {
+    window.location.href = "reset.html" + window.location.hash;
+    return;
+  }
+
   // already logged in? go straight to the app
   const { data: { session } } = await sb.auth.getSession();
   if (session) {
@@ -58,6 +65,22 @@ async function boot() {
     }
     showMsg(
       "Account aangemaakt. Vraag Kevin om je e-mailadres toe te voegen aan de 'members' tabel in Supabase — daarna kan je aanmelden.",
+      "ok"
+    );
+  });
+
+  document.getElementById("link-forgot").addEventListener("click", async (e) => {
+    e.preventDefault();
+    const email = emailEl.value.trim();
+    if (!email) {
+      showMsg("Vul eerst je e-mailadres in en klik dan opnieuw op 'Wachtwoord vergeten?'.", "error");
+      return;
+    }
+    const redirectTo = new URL("reset.html", window.location.href).href;
+    await sb.auth.resetPasswordForEmail(email, { redirectTo });
+    // Bewust steeds hetzelfde antwoord: niet verklappen of een e-mailadres bestaat.
+    showMsg(
+      "Als dit e-mailadres bij een account hoort, ontvang je zo meteen een mail met een link om je wachtwoord te herstellen.",
       "ok"
     );
   });
